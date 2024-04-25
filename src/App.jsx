@@ -10,6 +10,8 @@ function App() {
     event.preventDefault();
     //Update the list of items in our todoList
     setTodoList([...todoList, inputText]);
+    //Clearing the input after we've added the new task
+    setInputText("");
   }
 
   return (
@@ -26,11 +28,18 @@ function App() {
         />
         <button>Add Task</button>
       </form>
-      <ul>
+      <ol>
         {todoList.map((element, index) => {
-          return <li key={index}>{element}</li>
+          return <li>
+            <button onClick={() => {
+              //Update our list (remove the item)
+              const filteredList = todoList.filter((item, idx) => index != idx);
+              setTodoList(filteredList);
+            }}>X</button>
+            <p key={index}>{element}</p>
+          </li>
         })}
-      </ul>
+      </ol>
     </>
   )
 }
